@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miniproject.mapper.menu.MenuMapper">
+
+    <sql id="findMenu">
+        <where>
+            <if test="upperCd != null">
+                AND upper_cd = #{upperCd}
+            </if>
+            <if test="upperCd == null">
+                AND upper_cd = 'TOP'
+            </if>
+        </where>
+    </sql>
+
+    <select id="find" parameterType="menuEntity" resultType="menuEntity">
+        select menu_cd,
+        menu_cd_name,
+        cost
+        from TBL_MENU
+        <include refid="findMenu"></include>
+    </select>
+
+    <select id="findOption" resultType="menuEntity">
+        select menu_cd,
+               menu_cd_name
+        from TBL_MENU
+        where upper_cd = 'OPTION'
+    </select>
+</mapper>
