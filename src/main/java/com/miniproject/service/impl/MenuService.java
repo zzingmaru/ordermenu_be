@@ -1,6 +1,9 @@
 package com.miniproject.service.impl;
 
 import com.miniproject.api.CommonResponse;
+import com.miniproject.api.menu.dto.CartRequest;
+import com.miniproject.api.menu.dto.CartResponse;
+import com.miniproject.api.menu.dto.MenuRequest;
 import com.miniproject.api.menu.dto.MenuResponse;
 import com.miniproject.common.ObjectMapperUtil;
 import com.miniproject.mapper.menu.MenuEntity;
@@ -21,6 +24,7 @@ public class MenuService implements MenuBaseService {
         this.menuMapper = menuMapper;
     }
 
+    @Deprecated
     @Override
     public CommonResponse<List<MenuResponse>> find(String upperCd) {
         MenuEntity search = new MenuEntity();
@@ -36,6 +40,7 @@ public class MenuService implements MenuBaseService {
                 .build();
     }
 
+    @Deprecated
     @Override
     public CommonResponse<List<MenuResponse>> findOption(String upperCd) {
         MenuEntity entity = new MenuEntity();
@@ -53,18 +58,18 @@ public class MenuService implements MenuBaseService {
             case "CAFE_LATTE":
             case "CAPPUCCINO":
                 // 커피류는 모든 옵션 사용 가능 (HOT/ICE, LIGHT/THICK)
-                setOptionsAvailability(menuResponses, true, true, true, true);
+//                setOptionsAvailability(menuResponses, true, true, true, true);
                 break;
 
             case "CHOCO":
             case "STRAWBERRY_LATTE":
                 // 라떼류는 HOT/ICE만 가능, 농도 조절 불가
-                setOptionsAvailability(menuResponses, true, true, false, false);
+//                setOptionsAvailability(menuResponses, true, true, false, false);
                 break;
 
             case "GRAPEFRUIT_ADE":
                 // 에이드는 ICE만 가능, 농도 조절 가능
-                setOptionsAvailability(menuResponses, false, true, true, true);
+//                setOptionsAvailability(menuResponses, false, true, true, true);
                 break;
 
             case "PEPPERMINT_TEA":
@@ -73,7 +78,7 @@ public class MenuService implements MenuBaseService {
             case "ASSAM_TEA":
             case "DARJEELING_TEA":
                 // 차류는 HOT/ICE 가능, 농도 조절 가능
-                setOptionsAvailability(menuResponses, true, true, false, false);
+//                setOptionsAvailability(menuResponses, true, true, false, false);
                 break;
         }
 
@@ -82,29 +87,34 @@ public class MenuService implements MenuBaseService {
                 .build();
     }
 
-    // 옵션 활성화/비활성화 설정 메소드
-    private void setOptionsAvailability(List<MenuResponse> responses,
-                                        boolean hotEnabled,
-                                        boolean iceEnabled,
-                                        boolean lightEnabled,
-                                        boolean thickEnabled) {
-        for (MenuResponse response : responses) {
-            switch (response.getMenuCd()) {
-                case "HOT_OPT":
-                case "HOT":
-                    response.setDisabled(!hotEnabled);
-                    break;
-                case "ICE_OPT":
-                case "ICE":
-                    response.setDisabled(!iceEnabled);
-                    break;
-                case "LIGHT":
-                    response.setDisabled(!lightEnabled);
-                    break;
-                case "THICK":
-                    response.setDisabled(!thickEnabled);
-                    break;
-            }
-        }
+    @Override
+    public CommonResponse<List<CartResponse>> saveCart(CartRequest menuRequest) {
+        return null;
     }
+
+    // 옵션 활성화/비활성화 설정 메소드
+//    private void setOptionsAvailability(List<MenuResponse> responses,
+//                                        boolean hotEnabled,
+//                                        boolean iceEnabled,
+//                                        boolean lightEnabled,
+//                                        boolean thickEnabled) {
+//        for (MenuResponse response : responses) {
+//            switch (response.getMenuCd()) {
+//                case "HOT_OPT":
+//                case "HOT":
+//                    response.setDisabled(!hotEnabled);
+//                    break;
+//                case "ICE_OPT":
+//                case "ICE":
+//                    response.setDisabled(!iceEnabled);
+//                    break;
+//                case "LIGHT":
+//                    response.setDisabled(!lightEnabled);
+//                    break;
+//                case "THICK":
+//                    response.setDisabled(!thickEnabled);
+//                    break;
+//            }
+//        }
+//    }
 }

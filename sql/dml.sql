@@ -1,5 +1,5 @@
 -- 계정 등록
-INSERT INTO public.tbl_menu (menu_cd, menu_cd_name, upper_cd, cost)
+-- INSERT INTO tbl_menu (menu_cd, menu_cd_name, upper_cd, cost)
 VALUES ('DRINK', '음료', 'TOP', NULL),
        ('DESSERT', '디저트', 'TOP', NULL),
 
