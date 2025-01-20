@@ -38,4 +38,8 @@
         INSERT INTO TBL_CART (order_num, menu_cd, menu_cd_name, cost)
         VALUES (#{orderNum}, #{menuCd}, #{menuCdName}, #{cost})
     </insert>
+
+    <select id="findCartList" resultType="CartMenuEntity">
+        select cart_seq, order_num, menu_cd, menu_cd_name, cost from TBL_CART where order_num = #{orderNum}
+    </select>
 </mapper>

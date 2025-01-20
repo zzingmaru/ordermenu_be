@@ -12,8 +12,10 @@ import com.miniproject.common.ObjectMapperUtil;
 import com.miniproject.mapper.menu.*;
 import com.miniproject.service.MenuBaseService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.util.TypeUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -118,7 +120,24 @@ public class MenuService implements MenuBaseService {
 
         return CommonResponse.<CartResponse>builder()
                 .data(objectMapper.convertValue(cartEntity, CartResponse.class))
-                .build() ;
+                .build();
+    }
+
+    @Override
+    public CommonResponse<List<CartResponse>> getCartList(String orderNum) {
+        List<CartMenuEntity> list = menuMapper.findCartList(orderNum);
+        log.info("list" + list);
+
+//        list.forEach(cartMenuEntity -> {
+//            CartResponse cartResponse = objectMapper.convertValue(cartMenuEntity, CartResponse.class);
+//            Colletion.
+//        });
+
+//        List<CartResponse> cartResponses = objectMapper.convertValue(list, CartResponse.class)
+//        log.info("cartResponses" + cartResponses);
+//
+//        return CommonResponse.<List<CartResponse>>builder().data(cartResponses).build();
+        return null;
     }
 
     // 옵션 활성화/비활성화 설정 메소드

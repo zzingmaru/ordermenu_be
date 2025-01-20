@@ -37,11 +37,20 @@ public class MenuController {
         return menuService.findOption(upperCd);
     }
 
+    // 담은 메뉴 저장
     @PostMapping({"/cart"})
     CommonResponse<CartResponse> saveCart(@RequestBody CartRequest cartRequest){
         return menuService.saveCart(cartRequest);
     }
+    
+    // 주문 메뉴 조회
+    @GetMapping({"/cart-list"})
+    CommonResponse<List<CartResponse>> getCartList( @RequestParam(required = true) String orderNum){
+        return menuService.getCartList(orderNum);
+    }
 
+
+    
 
 
 }
