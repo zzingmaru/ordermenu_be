@@ -15,9 +15,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.util.TypeUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service("menuService")
@@ -141,16 +144,16 @@ public class MenuService implements MenuBaseService {
         List<CartMenuEntity> list = menuMapper.findCartList(orderNum);
         log.info("list" + list);
 
-//        list.forEach(cartMenuEntity -> {
-//            CartResponse cartResponse = objectMapper.convertValue(cartMenuEntity, CartResponse.class);
-//            Colletion.
-//        });
+        List<CartResponse> cartResponses = new ArrayList<>();
+
+        list.forEach(cartMenuEntity -> {
+            CartResponse cartResponse = objectMapper.convertValue(cartMenuEntity, CartResponse.class);
+            cartResponses.add(cartResponse);
+        });
 
 //        List<CartResponse> cartResponses = objectMapper.convertValue(list, CartResponse.class)
-//        log.info("cartResponses" + cartResponses);
-//
-//        return CommonResponse.<List<CartResponse>>builder().data(cartResponses).build();
-        return null;
+
+        return CommonResponse.<List<CartResponse>>builder().data(cartResponses).build();
     }
 
     // 옵션 활성화/비활성화 설정 메소드
