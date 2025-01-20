@@ -14,5 +14,5 @@ public interface MenuBaseService {
 
     CommonResponse<List<MenuResponse>> findOption(String upperCd);
 
-    CommonResponse<List<CartResponse>> saveCart(CartRequest menuRequest);
+    CommonResponse<CartResponse> saveCart(CartRequest menuRequest);
 }

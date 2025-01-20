@@ -38,9 +38,10 @@ public class MenuController {
     }
 
     @PostMapping({"/cart"})
-    CommonResponse<List<CartResponse>> saveCart(@RequestBody CartRequest cartRequest){
+    CommonResponse<CartResponse> saveCart(@RequestBody CartRequest cartRequest){
         return menuService.saveCart(cartRequest);
     }
+
 
 
 }

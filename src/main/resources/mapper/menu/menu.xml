@@ -27,4 +27,15 @@
         from TBL_MENU
         where upper_cd = 'OPTION'
     </select>
+
+
+    <insert id="saveCart" parameterType="cartEntity">
+        INSERT INTO TBL_CART (order_num, menu_cd, menu_cd_name, cost)
+        VALUES (#{orderNum}, #{menuCd}, #{menuCdName}, #{cost})
+    </insert>
+
+    <insert id="saveOptionCart" parameterType="cartOptionEntity">
+        INSERT INTO TBL_CART (order_num, menu_cd, menu_cd_name, cost)
+        VALUES (#{orderNum}, #{menuCd}, #{menuCdName}, #{cost})
+    </insert>
 </mapper>

@@ -3,16 +3,22 @@ package com.miniproject.api.menu.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class CartResponse {
-    private String menuCd;
-    private String menuCdName;
-    private String upperCd;
-    private Double cost;
-    private CartRequest.Opt opt;
+    private String orderNum;
+    private String code;
+    private String name;
+    private Double price;
+    private List<CartRequest.Opt> opt;
 
-    private Boolean optYn;
-
-
+    @Getter
+    @Setter
+    public static class Opt{
+        private String code;
+        private String name;
+        private String price;
+    }
 }

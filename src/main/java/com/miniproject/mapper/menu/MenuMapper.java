@@ -1,5 +1,6 @@
 package com.miniproject.mapper.menu;
 
+import com.miniproject.api.menu.dto.CartRequest;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -9,4 +10,8 @@ public interface MenuMapper {
     List<MenuEntity> find(MenuEntity entity);
 
     List<MenuEntity> findOption();
+
+    void saveCart(CartEntity cartEntity);
+
+    void saveOptionCart(CartOptionEntity cartOptionEntity );
 }
