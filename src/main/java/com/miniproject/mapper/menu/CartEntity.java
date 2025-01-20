@@ -22,4 +22,6 @@ public class CartEntity {
 
     @JsonProperty("selectedOptions")
     private List<CartOptionEntity> optList;
+
+    private String orderNum;
 }
