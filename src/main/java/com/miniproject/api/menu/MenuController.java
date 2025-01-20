@@ -40,12 +40,17 @@ public class MenuController {
         return menuService.saveCart(cartRequest);
     }
     
-    // 주문 메뉴 조회
+    // 장바구니 조회
     @GetMapping({"/cart-list"})
     CommonResponse<List<CartTotalResponse>> getCartList(@RequestParam(required = true) String orderNum){
         return menuService.getCartList(orderNum);
     }
 
+    // 장바구니 삭제
+    @DeleteMapping({"/cart-list"})
+    CommonResponse<String> deleteCartList(@RequestParam(required = true) String seq){
+        return menuService.deleteCartList(seq);
+    }
 
     
 

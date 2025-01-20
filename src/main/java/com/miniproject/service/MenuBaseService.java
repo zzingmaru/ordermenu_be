@@ -14,4 +14,6 @@ public interface MenuBaseService {
     CommonResponse<CartResponse> saveCart(CartRequest menuRequest);
 
     CommonResponse<List<CartTotalResponse>> getCartList(String orderNum);
+
+    CommonResponse<String> deleteCartList(String seq);
 }

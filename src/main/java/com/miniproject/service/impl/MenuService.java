@@ -145,11 +145,20 @@ public class MenuService implements MenuBaseService {
         for (CartTotalResponse cartTotalResponse : cartTotalResponses) {
             double totalCostValue = cartTotalResponse.getSelectMenu().stream().mapToDouble(CartMenuEntity::getCost).sum();
 
+            log.info(String.valueOf(totalCostValue));
+
             cartTotalResponse.setTotalCost(String.valueOf(totalCostValue));
         }
 
         return CommonResponse.<List<CartTotalResponse>>builder().data(cartTotalResponses).build();
     }
+
+    @Override
+    public CommonResponse<String> deleteCartList(String seq) {
+
+        return CommonResponse.<String>builder().data("success").build();
+    }
+
 
     // 옵션 활성화/비활성화 설정 메소드
 //    private void setOptionsAvailability(List<MenuResponse> responses,
