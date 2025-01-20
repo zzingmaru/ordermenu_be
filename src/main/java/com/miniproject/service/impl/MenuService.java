@@ -4,10 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.miniproject.api.CommonResponse;
-import com.miniproject.api.menu.dto.CartRequest;
-import com.miniproject.api.menu.dto.CartResponse;
-import com.miniproject.api.menu.dto.MenuRequest;
-import com.miniproject.api.menu.dto.MenuResponse;
+import com.miniproject.api.menu.dto.*;
 import com.miniproject.common.ObjectMapperUtil;
 import com.miniproject.mapper.menu.*;
 import com.miniproject.service.MenuBaseService;
@@ -140,20 +137,10 @@ public class MenuService implements MenuBaseService {
     }
 
     @Override
-    public CommonResponse<List<CartResponse>> getCartList(String orderNum) {
-        List<CartMenuEntity> list = menuMapper.findCartList(orderNum);
-        log.info("list" + list);
+    public CommonResponse<List<CartTotalResponse>> getCartList(String orderNum) {
+        List<CartTotalResponse> cartResponses = ObjectMapperUtil.mapAll(menuMapper.findCartList(orderNum), CartTotalResponse.class);
 
-        List<CartResponse> cartResponses = new ArrayList<>();
-
-        list.forEach(cartMenuEntity -> {
-            CartResponse cartResponse = objectMapper.convertValue(cartMenuEntity, CartResponse.class);
-            cartResponses.add(cartResponse);
-        });
-
-//        List<CartResponse> cartResponses = objectMapper.convertValue(list, CartResponse.class)
-
-        return CommonResponse.<List<CartResponse>>builder().data(cartResponses).build();
+        return CommonResponse.<List<CartTotalResponse>>builder().data(cartResponses).build();
     }
 
     // 옵션 활성화/비활성화 설정 메소드

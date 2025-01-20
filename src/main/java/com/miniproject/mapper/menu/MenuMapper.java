@@ -16,5 +16,5 @@ public interface MenuMapper {
 
     void saveOptionCart(CartOptionEntity cartOptionEntity );
 
-    List<CartMenuEntity> findCartList(String orderNum);
+    List<CartTotalEntity> findCartList(String orderNum);
 }

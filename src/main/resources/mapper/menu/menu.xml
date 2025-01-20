@@ -39,7 +39,17 @@
         VALUES (#{orderNum}, #{menuCd}, #{menuCdName}, #{cost})
     </insert>
 
-    <select id="findCartList" resultType="CartMenuEntity">
+    <resultMap id="cartTotal" type="cartTotalEntity">
+        <result column="ORDER_NUM" property="orderNum"/>
+        <collection property="selectMenu" ofType="CartMenuEntity">
+            <result property="cartSeq" column="CART_SEQ"/>
+            <result property="menuCd" column="MENU_CD"/>
+            <result property="menuCdName" column="MENU_CD_NAME"/>
+            <result property="cost" column="COST"/>
+        </collection>
+    </resultMap>
+
+    <select id="findCartList" resultMap="cartTotal">
         select cart_seq, order_num, menu_cd, menu_cd_name, cost from TBL_CART where order_num = #{orderNum}
     </select>
 </mapper>

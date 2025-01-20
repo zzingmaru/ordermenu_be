@@ -1,10 +1,7 @@
 package com.miniproject.service;
 
 import com.miniproject.api.CommonResponse;
-import com.miniproject.api.menu.dto.CartRequest;
-import com.miniproject.api.menu.dto.CartResponse;
-import com.miniproject.api.menu.dto.MenuRequest;
-import com.miniproject.api.menu.dto.MenuResponse;
+import com.miniproject.api.menu.dto.*;
 
 import java.util.List;
 
@@ -16,5 +13,5 @@ public interface MenuBaseService {
 
     CommonResponse<CartResponse> saveCart(CartRequest menuRequest);
 
-    CommonResponse<List<CartResponse>> getCartList(String orderNum);
+    CommonResponse<List<CartTotalResponse>> getCartList(String orderNum);
 }

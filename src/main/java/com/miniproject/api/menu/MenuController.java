@@ -1,10 +1,7 @@
 package com.miniproject.api.menu;
 
 import com.miniproject.api.CommonResponse;
-import com.miniproject.api.menu.dto.CartRequest;
-import com.miniproject.api.menu.dto.CartResponse;
-import com.miniproject.api.menu.dto.MenuRequest;
-import com.miniproject.api.menu.dto.MenuResponse;
+import com.miniproject.api.menu.dto.*;
 import com.miniproject.service.MenuBaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -45,7 +42,7 @@ public class MenuController {
     
     // 주문 메뉴 조회
     @GetMapping({"/cart-list"})
-    CommonResponse<List<CartResponse>> getCartList( @RequestParam(required = true) String orderNum){
+    CommonResponse<List<CartTotalResponse>> getCartList(@RequestParam(required = true) String orderNum){
         return menuService.getCartList(orderNum);
     }
 
