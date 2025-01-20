@@ -101,18 +101,31 @@ public class MenuService implements MenuBaseService {
         CartEntity cartEntity = objectMapper.convertValue(cartRequest, CartEntity.class);
 
         // orderNum 생성
-        String orderNum = UUID.randomUUID().toString();
-        cartEntity.getSelectMenu().setOrderNum(orderNum);
+        if(cartEntity.getOrderNum() == null) {
+            String orderNum = UUID.randomUUID().toString();
+            cartEntity.setOrderNum(orderNum);
+            cartEntity.getSelectMenu().setOrderNum(orderNum);
 
-        // cartEntity null 확인
-        log.info(cartEntity.toString());
-        menuMapper.saveCart(cartEntity.getSelectMenu());
-        if (cartEntity.getOptList() != null) {
-            List<CartOptionEntity> cartOptionEntity = ObjectMapperUtil.mapAll(cartEntity.getOptList(), CartOptionEntity.class);
+            // cartEntity null 확인
+            log.info(cartEntity.toString());
+            menuMapper.saveCart(cartEntity.getSelectMenu());
+            if (cartEntity.getOptList() != null) {
+                List<CartOptionEntity> cartOptionEntity = ObjectMapperUtil.mapAll(cartEntity.getOptList(), CartOptionEntity.class);
 
-            for (CartOptionEntity opt : cartOptionEntity) {
-                opt.setOrderNum(orderNum);
-                menuMapper.saveOptionCart(opt);
+                for (CartOptionEntity opt : cartOptionEntity) {
+                    opt.setOrderNum(orderNum);
+                    menuMapper.saveOptionCart(opt);
+                }
+            }
+        } else {
+            cartEntity.getSelectMenu().setOrderNum(cartRequest.getOrderNum());
+            menuMapper.saveCart(cartEntity.getSelectMenu());
+            if (cartEntity.getOptList() != null) {
+                List<CartOptionEntity> cartOptionEntity = ObjectMapperUtil.mapAll(cartEntity.getOptList(), CartOptionEntity.class);
+                for (CartOptionEntity opt : cartOptionEntity) {
+                    opt.setOrderNum(cartRequest.getOrderNum());
+                    menuMapper.saveOptionCart(opt);
+                }
             }
         }
 

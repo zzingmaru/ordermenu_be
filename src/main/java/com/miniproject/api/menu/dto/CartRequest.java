@@ -13,6 +13,7 @@ public class CartRequest {
 //    private Double price;
     private SelectMenu selectMenu;
     private List<Opt> selectedOptions;
+    private String orderNum;
 
     @Getter
     @Setter
