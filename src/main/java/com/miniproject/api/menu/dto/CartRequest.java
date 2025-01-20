@@ -8,7 +8,7 @@ import java.util.List;
 @Getter
 @Setter
 public class CartRequest {
-//    private String code;
+    //    private String code;
 //    private String name;
 //    private Double price;
     private SelectMenu selectMenu;
@@ -17,10 +17,11 @@ public class CartRequest {
 
     @Getter
     @Setter
-    public static class Opt{
+    public static class Opt {
         private String code;
         private String name;
         private Double price;
+        private String optionYn;
     }
 
     @Getter
@@ -29,5 +30,6 @@ public class CartRequest {
         private String code;
         private String name;
         private Double price;
+        private String optionYn;
     }
 }

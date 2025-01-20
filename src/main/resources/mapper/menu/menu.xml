@@ -30,13 +30,13 @@
 
 
     <insert id="saveCart" parameterType="cartEntity">
-        INSERT INTO TBL_CART (order_num, menu_cd, menu_cd_name, cost)
-        VALUES (#{orderNum}, #{menuCd}, #{menuCdName}, #{cost})
+        INSERT INTO TBL_CART (order_num, menu_cd, menu_cd_name, cost, option_yn)
+        VALUES (#{orderNum}, #{menuCd}, #{menuCdName}, #{cost}, #{optionYn})
     </insert>
 
     <insert id="saveOptionCart" parameterType="cartOptionEntity">
-        INSERT INTO TBL_CART (order_num, menu_cd, menu_cd_name, cost)
-        VALUES (#{orderNum}, #{menuCd}, #{menuCdName}, #{cost})
+        INSERT INTO TBL_CART (order_num, menu_cd, menu_cd_name, cost, option_yn)
+        VALUES (#{orderNum}, #{menuCd}, #{menuCdName}, #{cost}, #{optionYn})
     </insert>
 
     <resultMap id="cartTotal" type="cartTotalEntity">
@@ -46,10 +46,11 @@
             <result property="menuCd" column="MENU_CD"/>
             <result property="menuCdName" column="MENU_CD_NAME"/>
             <result property="cost" column="COST"/>
+            <result property="optionYn" column="OPTION_YN"/>
         </collection>
     </resultMap>
 
     <select id="findCartList" resultMap="cartTotal">
-        select cart_seq, order_num, menu_cd, menu_cd_name, cost from TBL_CART where order_num = #{orderNum}
+        select cart_seq, order_num, menu_cd, menu_cd_name, cost, option_yn from TBL_CART where order_num = #{orderNum}
     </select>
 </mapper>

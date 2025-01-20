@@ -24,4 +24,7 @@ public class CartMenuEntity {
 
     @JsonProperty("price")
     private double cost;
+
+    @JsonProperty("optionYn")
+    private String optionYn;
 }
