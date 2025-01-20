@@ -8,17 +8,24 @@ import java.util.List;
 @Getter
 @Setter
 public class CartResponse {
-    private String orderNum;
-    private String code;
-    private String name;
-    private Double price;
-    private List<CartRequest.Opt> opt;
+    private SelectMenu selectMenu;
+    private List<Opt> selectedOptions;
 
     @Getter
     @Setter
     public static class Opt{
+        private String orderNum;
         private String code;
         private String name;
-        private String price;
+        private Double price;
+    }
+
+    @Getter
+    @Setter
+    public static class SelectMenu {
+        private String orderNum;
+        private String code;
+        private String name;
+        private Double price;
     }
 }

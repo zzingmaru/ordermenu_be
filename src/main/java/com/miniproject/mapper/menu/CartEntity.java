@@ -16,21 +16,10 @@ import java.util.List;
 @AllArgsConstructor
 @Alias("CartEntity")
 public class CartEntity {
-//    private String cartSeq;
-//    private String orderNum;
-//
-//    @JsonProperty("code")
-//    private String menuCd;
-//
-//    @JsonProperty("name")
-//    private String menuCdName;
-//
-//    @JsonProperty("price")
-//    private String cost;
 
-    @JsonAlias("selectMenu")
+    @JsonProperty("selectMenu")
     private CartMenuEntity selectMenu;
 
-    @JsonAlias("selectedOptions")
+    @JsonProperty("selectedOptions")
     private List<CartOptionEntity> optList;
 }

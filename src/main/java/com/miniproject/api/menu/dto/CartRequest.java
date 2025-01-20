@@ -24,7 +24,7 @@ public class CartRequest {
 
     @Getter
     @Setter
-    private static class SelectMenu {
+    public static class SelectMenu {
         private String code;
         private String name;
         private Double price;

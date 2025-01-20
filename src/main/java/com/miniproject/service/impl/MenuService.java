@@ -1,15 +1,15 @@
 package com.miniproject.service.impl;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.miniproject.api.CommonResponse;
 import com.miniproject.api.menu.dto.CartRequest;
 import com.miniproject.api.menu.dto.CartResponse;
 import com.miniproject.api.menu.dto.MenuRequest;
 import com.miniproject.api.menu.dto.MenuResponse;
 import com.miniproject.common.ObjectMapperUtil;
-import com.miniproject.mapper.menu.CartEntity;
-import com.miniproject.mapper.menu.CartOptionEntity;
-import com.miniproject.mapper.menu.MenuEntity;
-import com.miniproject.mapper.menu.MenuMapper;
+import com.miniproject.mapper.menu.*;
 import com.miniproject.service.MenuBaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,9 +22,13 @@ import java.util.UUID;
 public class MenuService implements MenuBaseService {
 
     final MenuMapper menuMapper;
+    private final ObjectMapper objectMapper;
 
-    public MenuService(MenuMapper menuMapper) {
+    public MenuService(MenuMapper menuMapper, ObjectMapper objectMapper) {
         this.menuMapper = menuMapper;
+        this.objectMapper = new ObjectMapper()
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                .configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
     }
 
     @Deprecated
@@ -94,28 +98,26 @@ public class MenuService implements MenuBaseService {
     public CommonResponse<CartResponse> saveCart(CartRequest cartRequest) {
         log.info(String.valueOf(cartRequest));
         // request 값을 cartEntity 저장 - 가져온 값을 바로 사용하지 않고 확인 후 사용하려는 의도
-        CartEntity cartEntity = ObjectMapperUtil.map(cartRequest, CartEntity.class);
+        CartEntity cartEntity = objectMapper.convertValue(cartRequest, CartEntity.class);
 
-        if (cartEntity != null) {
-            // orderNum 생성
-            String orderNum = UUID.randomUUID().toString();
-            cartEntity.getSelectMenu().setOrderNum(orderNum);
+        // orderNum 생성
+        String orderNum = UUID.randomUUID().toString();
+        cartEntity.getSelectMenu().setOrderNum(orderNum);
 
-            // cartEntity null 확인
-            log.info(cartEntity.toString());
-            menuMapper.saveCart(cartEntity);
-            if (cartEntity.getOptList() != null) {
-                List<CartOptionEntity> cartOptionEntity = ObjectMapperUtil.mapAll(cartEntity.getOptList(), CartOptionEntity.class);
+        // cartEntity null 확인
+        log.info(cartEntity.toString());
+        menuMapper.saveCart(cartEntity.getSelectMenu());
+        if (cartEntity.getOptList() != null) {
+            List<CartOptionEntity> cartOptionEntity = ObjectMapperUtil.mapAll(cartEntity.getOptList(), CartOptionEntity.class);
 
-                for (CartOptionEntity opt : cartOptionEntity) {
-                    opt.setOrderNum(orderNum);
-                    menuMapper.saveOptionCart(opt);
-                }
+            for (CartOptionEntity opt : cartOptionEntity) {
+                opt.setOrderNum(orderNum);
+                menuMapper.saveOptionCart(opt);
             }
         }
 
         return CommonResponse.<CartResponse>builder()
-                .data(ObjectMapperUtil.map(cartEntity, CartResponse.class))
+                .data(objectMapper.convertValue(cartEntity, CartResponse.class))
                 .build() ;
     }
 

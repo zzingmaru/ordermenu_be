@@ -11,7 +11,7 @@ public interface MenuMapper {
 
     List<MenuEntity> findOption();
 
-    void saveCart(CartEntity cartEntity);
+    void saveCart(CartMenuEntity cartMenuEntity);
 
     void saveOptionCart(CartOptionEntity cartOptionEntity );
 }
