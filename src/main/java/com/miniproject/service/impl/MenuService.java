@@ -140,15 +140,7 @@ public class MenuService implements MenuBaseService {
     public CommonResponse<List<CartTotalResponse>> getCartList(String orderNum) {
         List<CartTotalResponse> cartTotalResponses = ObjectMapperUtil.mapAll(menuMapper.findCartList(orderNum), CartTotalResponse.class);
 
-
-        // 총합
-        for (CartTotalResponse cartTotalResponse : cartTotalResponses) {
-            double totalCostValue = cartTotalResponse.getSelectMenu().stream().mapToDouble(CartMenuEntity::getCost).sum();
-
-            log.info(String.valueOf(totalCostValue));
-
-            cartTotalResponse.setTotalCost(String.valueOf(totalCostValue));
-        }
+        log.info(String.valueOf(cartTotalResponses));
 
         return CommonResponse.<List<CartTotalResponse>>builder().data(cartTotalResponses).build();
     }

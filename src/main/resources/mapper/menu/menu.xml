@@ -41,6 +41,7 @@
 
     <resultMap id="cartTotal" type="cartTotalEntity">
         <result column="ORDER_NUM" property="orderNum"/>
+        <result column="TOTAL" property="totalCost"/>
         <collection property="selectMenu" ofType="CartMenuEntity">
             <result property="cartSeq" column="CART_SEQ"/>
             <result property="menuCd" column="MENU_CD"/>
@@ -51,6 +52,7 @@
     </resultMap>
 
     <select id="findCartList" resultMap="cartTotal">
-        select cart_seq, order_num, menu_cd, menu_cd_name, cost, option_yn from TBL_CART where order_num = #{orderNum}
+        select SUM(cost) AS TOTAL, cart_seq, order_num, menu_cd, menu_cd_name, cost, option_yn from TBL_CART where order_num = #{orderNum}
+        GROUP BY cart_seq, order_num, menu_cd, menu_cd_name, cost, option_yn
     </select>
 </mapper>

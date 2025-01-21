@@ -18,4 +18,5 @@ public class CartTotalEntity {
     private List<CartMenuEntity> selectMenu;
 
     private String orderNum;
+    private String totalCost;
 }
