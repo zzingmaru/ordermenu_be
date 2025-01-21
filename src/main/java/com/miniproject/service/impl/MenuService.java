@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.miniproject.api.CommonResponse;
 import com.miniproject.api.menu.dto.*;
 import com.miniproject.common.ObjectMapperUtil;
+import com.miniproject.exception.UseException;
 import com.miniproject.mapper.menu.*;
 import com.miniproject.service.MenuBaseService;
 import lombok.extern.slf4j.Slf4j;
@@ -103,8 +104,9 @@ public class MenuService implements MenuBaseService {
         CartEntity cartEntity = objectMapper.convertValue(cartRequest, CartEntity.class);
 
         // orderNum 생성
-        if(cartEntity.getOrderNum() == null) {
+        if (cartEntity.getOrderNum() == null) {
             String orderNum = UUID.randomUUID().toString();
+            log.info(orderNum);
             cartEntity.setOrderNum(orderNum);
             cartEntity.getSelectMenu().setOrderNum(orderNum);
 
@@ -146,9 +148,16 @@ public class MenuService implements MenuBaseService {
     }
 
     @Override
-    public CommonResponse<String> deleteCartList(String seq) {
-
-        return CommonResponse.<String>builder().data("success").build();
+    public CommonResponse<Object> deleteMenuList(String[] seq) {
+        for (String s : seq) {
+            try {
+                Integer seqInt = Integer.parseInt(s);
+                menuMapper.deleteMenuList(seqInt);
+            } catch (NullPointerException e) {
+                log.error("삭제 실패", e);
+            }
+        }
+        return CommonResponse.<Object>builder().build();
     }
 
 

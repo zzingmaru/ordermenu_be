@@ -48,11 +48,8 @@ public class MenuController {
 
     // 장바구니 삭제 (requestbody로 받을 수 없으므로 putmapping)
     @PutMapping({"/cart-list"})
-    CommonResponse<String> deleteMenuList(@RequestBody(required = true) String[] seq){
-    String seqStr = String.join(",", seq);
-    log.info(seqStr);
-    return null;
-        //        return menuService.deleteCartList(seq);
+    CommonResponse<Object> deleteMenuList(@RequestBody String[] seq){
+    return menuService.deleteMenuList(seq);
     }
 
     

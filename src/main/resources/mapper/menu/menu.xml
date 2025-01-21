@@ -52,7 +52,25 @@
     </resultMap>
 
     <select id="findCartList" resultMap="cartTotal">
-        select SUM(cost) AS TOTAL, cart_seq, order_num, menu_cd, menu_cd_name, cost, option_yn from TBL_CART where order_num = #{orderNum}
-        GROUP BY cart_seq, order_num, menu_cd, menu_cd_name, cost, option_yn
+        select
+            c.cart_seq,
+            c.order_num,
+            c.menu_cd,
+            c.menu_cd_name,
+            c.cost,
+            c.option_yn,
+            t.TOTAL
+        from TBL_CART c
+        inner join (
+            select order_num, SUM(cost) as TOTAL
+            from tbl_cart
+            group by order_num
+        ) t on c.order_num = t.order_num
+        where c.order_num = #{orderNum}
     </select>
+
+    <delete id="deleteMenuList" parameterType="integer" >
+        DELETE FROM tbl_cart WHERE cart_seq = #{seq}
+    </delete>
+
 </mapper>
