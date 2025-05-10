@@ -24,6 +24,7 @@ VALUES ('DRINK', '음료', 'TOP', NULL),
        ('YAKISOBA_BREAD', '야끼소바 빵', 'DESSERT', 4000),
        ('SMALL_ECHO', '작은 메아리', 'DESSERT', 3000),
        ('TIRAMISU', '티라미수', 'DESSERT', 5500),
+--        ('TIRAMISU', '티라미수', 'DESSERT', 5500),
 
 --  옵션
        ('HOT_OPT', 'HOT', 'OPTION', null),
